@@ -1,0 +1,145 @@
+monolithic quiz application
+
+video 1 on quiz app
+create a springboot application with dependencies: web, mysql, jpa, lombok
+
+create questions table in microservices databas add some random data
+
+create a rest controller
+
+video 2 on quiz app 
+we want to fetch the questions from db and display them and for this we need layers in the application
+request -> controler layer -> service layer -> repo(dao) layer -> database
+create service and repo layers to fetch questions from
+
+video 3 on quizapp
+fetcging questions based on category
+add code in controller, service and replayers to fetch questions based on category
+doubt
+will autowirng happens when we make request to controller ?
+
+add code to add question to database table
+
+video 4 on quizapp
+responsentity and exception handling
+to retirn data and as well as response -> we use response entity
+make the same change is service layer along wth controller layer because doing in service layer helps in exception handling
+and we can remove this change in controller layer as service woll be returing it to controller layer
+
+if there is an error, we have to handle it, so add the code inside try catch block in the service layer where business lohic is written
+
+video 5 on quiz app
+question service is done
+now will go for quiz service
+create a quixz controller with post method to create a quiz bsed on the url variables(request paramters)
+
+video 6 on quiz app
+create quiz service
+we want to map quiz to question -> 1 quiz can have many questions and similary one question cen be there in multiple quizzes
+we want quiz repo
+native queries
+ 
+
+video 7 on quiz app
+now we have to fetch the quiz questions, we can do so by using quiz id
+create a controller to fetch questions based on the quiz id
+
+video 8 on quiz app
+calculating the score based on response
+here both quiz and question services were in the same project
+
+
+1. microservices
+we have quiz application with 2 controllers question and quiz, where quiz and question services are tightly coupled -> ex: quizrepo and questionrepo in the code
+we wnat to separate them so that quiz and question servicea re seperated
+
+2. creation question service
+every microservice is one project
+create question service with web, joa, lombok, mysql, eureksa discovery client and openfeign as dependencies, 
+comment eureka nad openfeign dependencie sfow now in pom.xml
+copy all the repo, controller, entity pacakges to question service and delete the all the fikes realted to quiz service and keep only those that are related to 
+question service
+in qurestion controller class,
+we need to find a way to generate the quiz, in monolithic scenario quiz was responsible for generating the questions, like this it needed access to question database
+but now we dont want that, i.e quiz service will not be having access to question database which id in different server
+so if question service needs a quiz, it is the job of question service to generate the quiz
+basically if quiz service will request for question service for questions than question serrvice will  generate thequestions
+so we need a method for generating the questions in question service
+next we also need to get a the uestions for a particular quiz. we have a quiz database, in the quiz database it will have its own data about the quiz but not sbout the questions
+so for questions it needs to go to question service
+so we need a method to find the questions based on question id
+we also need a method to find the score
+
+3. question service
+implementing the required 3 methods in controller
+
+4. running question service
+
+5. Quiz Service
+  creatring a quiz, getQuizzes and getScore -> we need to have r=these features with Quiz Service 
+create quiz-service project with the same dependencies as for question service
+
+6. modify the service layer in quiz service that we have copied from monolithic application 
+createQuiz method: we need to call the end point /question/generate which is in question service, to get the questions for the quiz from quiz service
+so how do we do this, we need to send a request from quiz service to question srrvice(from one micro srrvice to another micro service)
+and for this we use something called rest emplate 
+how rest template works is: rest template is a class that has certain methods that we can use , it is part of spring framework
+to know to which running instance of the service we want our application ahould make call we use 
+we need a feign client : it is same as http web request difference is it provides some declarative way of requesting the pther service, so we dont have to hardcode values 
+like we do with rest template mentioning the service location, open feign helps us to declare what we want and what are the api's that we want to expose
+i.e the api that we want to hit
+2. service discovery:quiz service is trying tp search the quesyion service i.e question service needs to be discoverable so we have to discover it 
+how will we discover it?, to do this we need to use some server using which we can discover a particular api or micro service
+there are many available famouse one is eureka from netflix
+so we need 2 things, we need a eureka server and all the micro services they have to register themselves to eureka server and then one microservice can search 
+another micro service from the eureka server using eureka client 
+so every micro service which want to search will also be having a eureka client so they will search basically 
+by doing this we are solving the problem of ip address and with the help of feign we can request directly to feign with the service name
+sometimes we can also call them as a naming server
+what is eureka client and eureka server
+
+7. Creating a service registry
+how to run a eureka srver, basically we want to have something where different micro srvces will register themselves and then ofcourse they can also search
+about each other micro services
+we will create a service discovery server and then every client will register itself so they become a client 
+we gonna use eureka server, we will create eureka server
+create a project with name service-registry adding web and eureka server as dependencies
+in the main class add the annotation @EnableEurekaServer to make this service as eureka server
+in applicatio.properties file mention name and port of the application
+ckients wil register themsekves with eureka server
+to make any service register itself as a client with eureka server uncomment eureka dependency in question service
+with this, if we run multiple instane of question service or any other service they will be abke to register themselves as client with eureka server
+
+8. Working with Feign
+open feign:
+create a feign interface in the quiz service
+create a file -> this is a file thst helps us to connect to question service from quiz service
+there are 3 thinfs that we want to use from question service, we want to generate questions for quiz, get the questions for a particular quiz id and getting the score
+ uncomment the dependencies that we had commented when project was created
+annotate this interface with @FeingClient, in this annotation we need to mention the service to which we want to connect
+and inside this interface mention the methods that we are in question service but we want to use in quiz service
+with this, feign searches for the mentioned service and we need to use this inteface instance in quiz service kayer
+in the quiz service main application add @Enable feign clients annotation
+what is elementCollection annotation?
+
+9. Microservice calling a Micriservice
+
+10. completing 2 micro services
+ getQuizQuestions -> add business login in quiz sevice layer
+getResult -> add budsiness logic in quiz service layer
+
+
+11. Load Balancing
+when we have multiple instance of the same server in case of scalimg , based on which instance is free request will go to that server
+based on the amount of load on the service instace, request will be distributed amoung the nstances of the server
+with openfeign and eureka  -> load balancing comes by default
+environment.getproperty(local.serrver.port)
+
+12. API-Gateway
+create a project for api-gateway with dependencies eureka discovery client and gateway
+in properties file add the port for this server, also add locator enabled
+also add spring.cloud.gateway.discovery.locator.lower-case-service-id=true -> to allow for service name to be in lowercase
+
+with this now if we access http://localhost:gatewayport/service-name.endpoint
+
+

@@ -1,0 +1,12 @@
+securing gateway using keycloak
+
+download keycloak using docker-compse
+docker-compose -> configurstion yet need to be added
+
+if keycloak container is running accessing i at its port will ak us to sign, upon sign in create a relm and configure it 
+
+add the dependency for the sofar created connfiguration in pom.xml
+
+add the property for it in appliccation.properties
+
+i hae not added any code -> pending, need to do it

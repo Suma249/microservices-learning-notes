@@ -1,0 +1,14 @@
+we will use spring cloud gateway mvc as the apu gateway library
+
+api gayeway: acts as an entrypoint for the requests into our ssystem, we can forward the requests to the downstream microservices using the same
+and also an api gateway commonly used in distributed systems and microservices architecture
+so far we have 3 services, 
+ape gateway helps in security, monitoring, rate limiting and ssl termination
+
+drawbacks of api gateway
+
+we will be using spring cloud gateway mvc
+
+create a spring starter project wuth api gateway dependency
+create a class routes, and annotate with configuration, in this class define all routing rules for the application gateway
+for this we need to create the bean

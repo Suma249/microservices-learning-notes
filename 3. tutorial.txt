@@ -1,0 +1,4 @@
+create a project wuth same dependecies as for order services
+
+create a docker compose file
+

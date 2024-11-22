@@ -1,0 +1,14 @@
+order service -> it uses mysql database
+dependencies: tst containers, web, mysql, jpa, lombok, flyway migrstion
+
+in the project root folder -> create a docker-compose.yaml file -> execute this file to start the container 
+
+configure mysql in spring boot project
+
+simple spring boot project creation
+
+what is flyway migration dependency
+
+have few doubts with flyway migration
+
+writing integration tests part is pending

@@ -1,0 +1,10 @@
+order service communicates to inventory service synchronoulsy
+
+here will see how to establis this synchronous communication using the library called splring cloud feign
+
+whenver an order service takes a request from client to place an order wil implement a logic to check if the given product
+is in stock or not by calling the inventory service
+
+to achieve this synchronous communication, we can use many rest client in spring boot we can use rest template or web client or rest client 
+which is the rest client from spring boot 3
+we will use spring cloud open feign 

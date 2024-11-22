@@ -1,0 +1,43 @@
+What is spring cloud?
+
+what we are going to build and learn?
+ product service - create and view products, acts as product catalog
+ order service - can order products
+ inventory service - can check if product is in stock or not
+ notification service - can send notofications, after order is placed
+ order service, inventor service and notifiation service are hoing to interact with each other
+ synchronous and asynchronous commuication
+
+solution architecture diagram for the projecy
+
+logical structure
+
+controller layer -> at this layer we will be recieving a http request from the client , from here business logic is executed on the service layer
+in some of the services we are going to communicate with message queues, storing the information in db at repository layer
+
+creata product service spring boot project with dependenvies lombok, web, mongodb and test containers
+
+mvn clean verify -> to know if dependencies are downloeaded properly 
+
+install docker
+
+to install mongodb database using docker, create a docker compose file -> create a docker-compose.yml file in the root folder of project
+execute => docket compose ip -d(-d will strt dockwr compose in the background)
+
+
+configure mongodb uri in the application.properties file
+
+create product model or entity class in entity package
+to make product class as a document -> add document annotation
+
+create repository packafir product repository interface that extends mongorepository
+
+create a controller class -> create a product request record
+
+create service class for business logic
+
+create a product response record to return as a response
+
+test the application
+productserviceapplication.tests class -> sstill pending -> refer to screen shots taken
+                                                                                                                                                                                                                                                                                                                                                                                                                      

@@ -1,0 +1,10 @@
+in api-gateway project, 
+pom.xml -> add the two swagger dependencies here
+
+add the properties in application.properties
+also add a property to aggregate urls
+
+create routes for the three services swagger
+
+refractor openfeign client with rest client
+replace feigclient annotation in intentoryclient interace and fefine the implementation class for the same iterface -> pending

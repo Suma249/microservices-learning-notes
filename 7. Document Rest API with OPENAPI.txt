@@ -1,0 +1,21 @@
+uisng swagger yo document the rest api -> will document 3 services
+
+open api -> soecification that provides a formal statndard for descrbing http api's
+
+
+swagger uses open api it like hibernate and jpa relationship
+
+with spring boot we cannot directly use swagger but we ahve to use springdoc-openapi
+
+in product service pom.xml, add the dependency for springdoc openapi=> get it springdoc.org
+
+add the swagger-ui path property to the application.properties file of product-service application
+
+configuring rest api documentstion, create oprnapiconfig class
+
+now will see how to expose rest api documentation with json format
+add the dependency for it from springdoc.org
+
+in aplication.properties file add the api docs path property
+
+we can do the same with other 2 order and inventory services ->pending for now

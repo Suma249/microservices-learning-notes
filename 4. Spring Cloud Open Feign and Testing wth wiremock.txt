@@ -1,0 +1,37 @@
+order service communicates to inventory service synchronoulsy
+
+here will see how to establis this synchronous communication using the library called splring cloud feign
+
+whenver an order service takes a request from client to place an order wil implement a logic to check if the given product
+is in stock or not by calling the inventory service
+
+to achieve this synchronous communication, we can use many rest client in spring boot we can use rest template or web client or rest client 
+which is the rest client from spring boot 3
+we will use spring cloud open feign 
+
+add openfeign library to the order pom.xml, along with this we also need to add the parent version where all the versions of the spring cloud libraries are 
+maintained -> we can get this from spring initializr website
+add the open feign dependency and dependency management
+
+add @EnableFeignClient annotation to main class in the order services, this annotation will auto configure the necessary classes to use openfeign 
+
+create an interface called inventory client 
+annotate this interface with feignclient with values, and in this interface define the methods that we want to be handled by inventory services
+and then spring and open feing client will automatically add the necessary implementation to call the inventoruy service using the get method
+
+now we have to call the inventory client from order service
+
+integration testing
+we have to mock the interaction to the client, we can do this in 2 ways
+1. using mockito -> mocking library that will mock out the interaction to the method so intead of calling the method directly in the inventory client'it 
+will just provide a mock respinse that we can use
+2. wiremock -> better option, as mockito will just mock but not the acrual testing. wire mock will help with actual http test testing
+our order server will call wiremock server and this server will stub the call to the inventory service
+
+
+add the wire mock dependency to the pom file of oreder service
+
+in orderserviceapplicationtests class to autoconfigure all wiremock related class add @Autoconfigurewiremock annotation
+
+create a class inventoryclientstubs in the package stubs
+

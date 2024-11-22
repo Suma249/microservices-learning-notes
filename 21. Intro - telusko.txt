@@ -1,0 +1,12 @@
+what is micro service
+
+what is cloud computing
+
+blue green deployment?
+
+applications that are deployed on cloud are of two types
+1. cloud ready: making cahnges to the on prem application so that it can be made run on the cloud
+2. cloud native: to make use of all the cloud services, we should build application as cloud native, to build application for cloud we should make sure that
+it is cloud native
+
+heroku standards for building a cloud native app called 12-factor app
